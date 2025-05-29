@@ -1,1 +1,11 @@
-test
+{
+  "name": "地理历史综合题库",
+  "description": "基于 GitHub 的标准题库接口",
+  "apiConfig": {
+    "method": "GET",
+    "url": "https://raw.githubusercontent.com/你的用户名/仓库名/main/data/questions.json",
+    "dataType": "json"
+  },
+  "requestHandler": "return response.data.map(q => ({ ...q, _status: 'verified' }));",
+  "answerHandler": "const correct = question.answer[0]; return { correct, userAnswer: input, match: input === correct };"
+}
