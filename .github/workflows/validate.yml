@@ -1,0 +1,32 @@
+name: Validate Questions
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate JSON Syntax
+        run: |
+          # 检查是否为合法JSON
+          if ! jq empty data/questions.json; then
+            echo "❌ 数据文件格式错误"
+            exit 1
+          fi
+          
+          # 检查所有题目字段
+          invalid=$(jq 'map(
+            select(
+              .id == null or 
+              .question == null or 
+              (.type | inside(["single-choice","multiple-choice","true-false"]) | not) or 
+              (.options | type != "object") or 
+              (.answer | type != "array")
+            )
+          ) | length' data/questions.json)
+          
+          if [ "$invalid" -gt 0 ]; then
+            echo "❌ 发现 ${invalid} 道题目格式错误"
+            exit 1
+          fi
