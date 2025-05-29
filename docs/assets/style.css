@@ -44,7 +44,7 @@ header h1 {
   margin-top: 1rem;
 }
 
-#search, #category-filter, #type-filter {
+#search,#type-filter {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
