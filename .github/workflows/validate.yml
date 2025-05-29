@@ -1,4 +1,4 @@
-name: Validate Questions
+name: Validate Question Bank
 on: [push, pull_request]
 
 jobs:
@@ -9,24 +9,28 @@ jobs:
       
       - name: Validate JSON Syntax
         run: |
-          # 检查是否为合法JSON
+          # 检查题库数据格式
           if ! jq empty data/questions.json; then
-            echo "❌ 数据文件格式错误"
+            echo "❌ 题库数据格式错误"
             exit 1
           fi
           
-          # 检查所有题目字段
-          invalid=$(jq 'map(
-            select(
-              .id == null or 
-              .question == null or 
-              (.type | inside(["single-choice","multiple-choice","true-false"]) | not) or 
-              (.options | type != "object") or 
-              (.answer | type != "array")
-            )
-          ) | length' data/questions.json)
+          # 检查配置格式
+          if ! jq empty data/config.json; then
+            echo "❌ 配置格式错误"
+            exit 1
+          fi
           
-          if [ "$invalid" -gt 0 ]; then
-            echo "❌ 发现 ${invalid} 道题目格式错误"
+          # 检查题目类型
+          invalid_types=$(jq 'map(select(.type | inside(["single", "multiple", "judgement"]) | not)) | length' data/questions.json)
+          if [ "$invalid_types" -gt 0 ]; then
+            echo "❌ 发现 $invalid_types 个无效题目类型"
+            exit 1
+          fi
+          
+          # 检查必填字段
+          missing_fields=$(jq 'map(select(.id == null or .title == null or .type == null or .options == null or .answer == null)) | length' data/questions.json)
+          if [ "$missing_fields" -gt 0 ]; then
+            echo "❌ 发现 $missing_fields 个题目缺少必填字段"
             exit 1
           fi
