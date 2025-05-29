@@ -24,7 +24,6 @@ function renderQuestions(questions) {
     const card = document.createElement('div');
     card.className = `question-card ${q.type}`;
     card.dataset.id = q.id;
-
     
     // 生成选项HTML
     const optionsHtml = q.options.map(opt => {
@@ -73,27 +72,12 @@ function formatAnswer(answer, type) {
   return answer;
 }
 
-// 初始化页面
-async function init() {
-  const questions = await loadQuestions();
-  window.allQuestions = questions; // 保存到全局变量
-  
-  // 初始渲染
-  renderQuestions(questions);
-  
-  // 设置搜索功能
-  document.getElementById('search').addEventListener('input', filterQuestions);
-  document.getElementById('type-filter').addEventListener('change', filterQuestions);
-}
-
 // 题目过滤
 function filterQuestions() {
   const searchTerm = document.getElementById('search').value.toLowerCase();
   const type = document.getElementById('type-filter').value;
   
   const filtered = window.allQuestions.filter(q => {
-    // 分类过滤
-    
     // 类型过滤
     if (type && q.type !== type) return false;
     
@@ -108,6 +92,19 @@ function filterQuestions() {
   });
   
   renderQuestions(filtered);
+}
+
+// 初始化页面
+async function init() {
+  const questions = await loadQuestions();
+  window.allQuestions = questions; // 保存到全局变量
+  
+  // 初始渲染
+  renderQuestions(questions);
+  
+  // 设置搜索功能
+  document.getElementById('search').addEventListener('input', filterQuestions);
+  document.getElementById('type-filter').addEventListener('change', filterQuestions);
 }
 
 // 页面加载完成后初始化
