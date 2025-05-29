@@ -1,11 +1,19 @@
-{
-  "name": "地理历史综合题库",
-  "description": "基于 GitHub 的标准题库接口",
-  "apiConfig": {
-    "method": "GET",
-    "url": "https://raw.githubusercontent.com/你的用户名/仓库名/main/data/questions.json",
-    "dataType": "json"
-  },
-  "requestHandler": "return response.data.map(q => ({ ...q, _status: 'verified' }));",
-  "answerHandler": "const correct = question.answer[0]; return { correct, userAnswer: input, match: input === correct };"
-}
+[
+  {
+    "name": "综合知识题库",
+    "homepage": "https://youyuuuu.github.io",
+    "url": "https://raw.githubusercontent.com/Youyuuuu/Youyuuuu.github.io/main/data/questions.json",
+    "method": "get",
+    "contentType": "json",
+    "type": "fetch",
+    "headers": {
+      "Accept": "application/json"
+    },
+    "data": {
+      "search": {
+        "handler": "return (env) => { return { title: env.title, type: env.type, options: env.options.join('\\n') }; }"
+      }
+    },
+    "handler": "return (res) => {\n  const currentTitle = env.title;\n  const question = res.find(q => q.title === currentTitle);\n  \n  if (!question) return undefined;\n  \n  let answer;\n  \n  // 处理不同类型的答案格式\n  switch (question.type) {\n    case 'single':\n    case 'judgement':\n      answer = question.answer;\n      break;\n    case 'multiple':\n      // 多选题答案用#分隔\n      answer = question.answer.join('#');\n      break;\n    default:\n      answer = '';\n  }\n  \n  return [question.title, answer];\n}"
+  }
+]
