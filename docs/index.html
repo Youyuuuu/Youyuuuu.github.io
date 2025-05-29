@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>题库</title>
-    <link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>综合知识题库 - GitHub Pages</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div class="header">
-        <h1>题库</h1>
-        <input type="text" id="search" placeholder="搜索题目...">
+  <header>
+    <h1>📚 综合知识题库</h1>
+    <div class="controls">
+      <input type="text" id="search" placeholder="搜索题目...">
+      <select id="type-filter">
+        <option value="">所有类型</option>
+        <option value="single">单选题</option>
+        <option value="multiple">多选题</option>
+        <option value="judgement">判断题</option>
+      </select>
     </div>
-    <div id="quiz-container"></div>
-    <script src="assets/quiz.js"></script>
+  </header>
+  
+  <main>
+    <div id="quiz-container" class="question-list"></div>
+  </main>
+  
+  <footer>
+    <p>基于 GitHub Pages 和 AnswererWrapper 构建 | 题库配置符合 OCS 规范</p>
+    <p>最后更新: <span id="last-updated"></span></p>
+  </footer>
+  
+  <script src="assets/app.js"></script>
 </body>
 </html>
