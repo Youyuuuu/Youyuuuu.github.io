@@ -4,29 +4,20 @@
     "title": "10.被誉为中国'天空之镜'的茶卡盐湖、青海版'马尔代夫'的东台吉乃尔湖位于( )。",
     "type": "single",
     "options": ["A.柴达木盆地旅游区", "B.青海湖旅游区", "C.东部旅游区", "D.西部旅游区"],
-    "answer": "A",
-    "metadata": {
-      "difficulty": 2
-    }
+    "answer": "A"
   },
   {
     "id": "multi-56",
     "title": "1.青海热贡艺术发祥于黄南藏族自治州同仁县，是藏传佛教艺术的重要组成形式，包括(  )等藏艺形式。",
     "type": "multiple",
     "options": ["A.藏戏", "B.泥塑", "C.雕刻", "D.堆绣", "E.唐卡"],
-    "answer": ["B", "C", "D", "E"],
-    "metadata": {
-      "difficulty": 3
-    }
+    "answer": ["B", "C", "D", "E"]
   },
   {
     "id": "judge-191",
     "title": "120.维吾尔族妇女和姑娘都喜欢用天然的乌斯蔓草汁画眉、染指甲。",
     "type": "judgement",
     "options": ["A.对", "B.错"],
-    "answer": "A",
-    "metadata": {
-      "difficulty": 1
-    }
+    "answer": "A"
   }
 ]
